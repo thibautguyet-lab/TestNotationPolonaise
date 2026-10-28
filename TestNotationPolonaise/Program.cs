@@ -4,6 +4,75 @@ namespace TestNotationPolonaise
 {
     class Program
     {
+        static float Polonaise (string laFormule)
+        {
+            String phrase = laFormule;
+            string[] tab = phrase.Split (' ');
+            int position;
+            try
+            {
+                while (true)
+                {
+                    int index = -1;
+
+                    for (position = tab.Length - 1; position >= 0; position--)
+                    {
+                        if (tab[position] == "+" || tab[position] == "-" || tab[position] == "*" || tab[position] == "/")
+                        {
+                            index = position;
+                            break;
+                        }
+                    }
+                        if (position != -1)
+                        {
+                            if (tab[position] == "+")
+                            {
+                                tab[position] = (float.Parse(tab[position + 1]) + float.Parse(tab[position + 2])).ToString();
+                            }
+                            else
+                            {
+                                if (tab[position] == "-")
+                                {
+                                    tab[position] = (float.Parse(tab[position + 1]) - float.Parse(tab[position + 2])).ToString();
+                                }
+                                else
+                                {
+                                    if (tab[position] == "*")
+                                    {
+                                        tab[position] = (float.Parse(tab[position + 1]) * float.Parse(tab[position + 2])).ToString();
+                                    }
+                                    else
+                                    {
+                                        if (tab[position] == "/")
+                                        {
+                                                tab[position] = (float.Parse(tab[position + 1]) / float.Parse(tab[position + 2])).ToString();
+                                        }
+                                    }
+                                }
+                            }
+                            //supprimer cases
+                            for (int s = position +1; s < tab.Length - 2; s++)
+                            {
+                                tab[s] = tab[s + 2];
+                            }
+                            tab[tab.Length - 2] = " ";
+                        }
+                        else { break; }
+
+                }
+                float resultat = float.Parse(tab[0]);
+
+                return resultat;
+            }
+
+            catch
+            {
+                return float.NaN;
+            }
+            
+            
+        }
+
         /// <summary>
         /// saisie d'une réponse d'un caractère parmi 2
         /// </summary>
